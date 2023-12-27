@@ -8,7 +8,8 @@ pd.set_option('display.max_rows', None)  # Muestra todas las filas
 pd.set_option('display.max_columns', None)  # Muestra todas las columnas
 pd.set_option('display.width', None)
 
-df = pd.read_csv("data/data.csv")
+# df = pd.read_csv("data/data.csv")
+df = pd.read_parquet("data/data.parquet")
 df = df.fillna(0)
 
 column_names = df.columns.tolist()
@@ -59,3 +60,7 @@ columnas_finales = columnas_despues_ohe + columns_1_1_other_0 + columns_2_1_othe
 df_resultado = pd.DataFrame(df_transformed, columns=columnas_finales)
 
 print(df_resultado.head(100))
+
+df_resultado.to_csv("data/data_preprocessed.csv", index=False)
+
+df_resultado.to_parquet("data/data_preprocessed.parquet", index=False)

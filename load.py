@@ -14,4 +14,5 @@ selected_columns = list(selected_columns.keys())
 df2 = df[selected_columns]
 df2.shape
 
-df2.to_csv("data/data.csv", index=False)
+# df2.to_csv("data/data.csv", index=False)
+df2.to_parquet("data/data.parquet", index=False)
