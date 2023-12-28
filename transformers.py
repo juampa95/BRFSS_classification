@@ -4,6 +4,10 @@ from sklearn.preprocessing import FunctionTransformer
 
 
 class MyFunctionTransformer(FunctionTransformer):
+    """
+    Se uso para intentar extraer el nombre de las columnas al aplicar una funcion de transformacion propia
+    No funciono.
+    """
     def get_feature_names_out(self, input_features=None):
         return input_features
 

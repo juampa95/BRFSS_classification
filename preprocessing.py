@@ -8,6 +8,14 @@ pd.set_option('display.max_rows', None)  # Muestra todas las filas
 pd.set_option('display.max_columns', None)  # Muestra todas las columnas
 pd.set_option('display.width', None)
 
+
+"""
+Hago algunas transformaciones que seran necesarias sorbe variables categorias, como OHE. Por otro lado, sobre la mayoria
+de las variables hay que aplicar una "dicotomia", es decir tomar todos los valores que posee y categorizarlos en 2. Por 
+ejemplo, la variable Target que es "DIABETE4" puede tomar valores 1, 2, 3, 4, 5. Siendo que solo el 1 indica que realmente
+tiene diabetes, las demas son opciones que explican que no padece la enfermedad
+"""
+
 # df = pd.read_csv("data/data.csv")
 df = pd.read_parquet("data/data.parquet")
 df = df.fillna(0)
