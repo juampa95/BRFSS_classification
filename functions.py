@@ -2,13 +2,19 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 import json
+import pandas as pd
 
 
-def hist_box(df, variable, descripcion:int, agrupado=None):
+def hist_box(df, variable, descripcion:int, bins=None, agrupado=None):
     with open("data/features.json", "r") as file:
         info = json.load(file)
     unique_values = sorted(set(df[variable]))
-    bin_edges = [val - 0.5 for val in unique_values] + [max(unique_values) + 0.5]
+
+    if bins == 1:
+        bin_edges = [val - 0.5 for val in unique_values] + [max(unique_values) + 0.5]
+    else:
+        bin_edges = "auto"
+
     fig,axes = plt.subplots(2,1,figsize=(15,10),
                             sharex = True,
                             gridspec_kw={'height_ratios':[1,3]})
@@ -72,22 +78,25 @@ def graf_cat(df, variable, descripcion:int, agrupado):
                 x = variable,
                 color=sns.color_palette('pastel')[7]
                 )
-    sns.countplot(ax = axes[1],
+
+    sns.histplot(ax = axes[1],
                  data  =df,
                  x = variable,
                  hue = agrupado,
-                 # multiple = 'fill',
-                 palette='pastel'
+                 palette='pastel',
+                 multiple='fill',
+                 discrete=True
                  )
+
     if descripcion == 1:
         plt.suptitle(titulo + '\n' + info[variable], fontsize=14, y = 0.97)
     else:
         plt.suptitle(titulo,fontsize=16,y = 0.9)
     axes[0].set_title('Histograma')
-    axes[0].set(xlabel=None, ylabel='count')
+    axes[0].set(xlabel=variable, ylabel='count')
     axes[0].tick_params(axis='x', rotation=90)
-    axes[1].set_title('Barras Agrupadas')
-    axes[1].set(xlabel=None, ylabel='%')
+    axes[1].set_title('Barras 100%')
+    axes[1].set(xlabel=variable, ylabel='%')
     axes[1].tick_params(axis='x', rotation=90)
     fig.set_facecolor('white')
     return plt.show()
