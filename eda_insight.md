@@ -12,12 +12,12 @@ Este analisis se hace para encontrar patrones que pudieran indicar que la person
 Las personas que poseen problemas de presión padecen de diabetes en mayor porcentaje que aquellas personas que no 
 tienen problemas de presión. 
 
-| Presión | S/Diabetes | C/Diabetes | % Con diabetes |
-|---------|------------|------------|----------------|
-| No      | 251002     | 15558     | 5.83% |
-| Si      | 130075     | 42058     | 24.43% |
+|  Presión  | S/Diabetes | C/Diabetes | % Con diabetes |
+|:---------:|:----------:|:----------:|:--------------:|
+|    No     |  251.002   |   15.558   |     5,83%      |
+|    Si     |  130.075   |   42.058   |   **24,43%**   |
 
-Las personas con presion padecen diabetes un 24.43% mientras las que no tiene presion solo padecen diabetes un 5.83%
+Las personas con presion padecen diabetes un 24,43% mientras las que no tiene presion solo padecen diabetes un 5,83%
 
 
 2. asd
