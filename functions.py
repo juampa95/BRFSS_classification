@@ -5,7 +5,7 @@ import json
 import pandas as pd
 
 
-def hist_box(df, variable, descripcion:int, bins=None, agrupado=None):
+def hist_box(df, variable, descripcion:int, path=None, bins=None, agrupado=None):
     with open("data/features.json", "r") as file:
         info = json.load(file)
     unique_values = sorted(set(df[variable]))
@@ -64,10 +64,13 @@ def hist_box(df, variable, descripcion:int, bins=None, agrupado=None):
         plt.suptitle(titulo,fontsize=16,y = 0.9)
     axes[0].set(xlabel=None, ylabel=None)
     fig.set_facecolor('white')
-    return plt.show()
+    if path != None:
+        return plt.savefig(path + variable + '.png')
+    else:
+        return plt.show()
 
 
-def graf_cat(df, variable, descripcion:int, agrupado):
+def graf_cat(df, variable, descripcion:int, agrupado, path=None):
     with open("data/features.json", "r") as file:
         info = json.load(file)
     titulo = (f'Barras variables no numericas: {variable}')
@@ -99,7 +102,10 @@ def graf_cat(df, variable, descripcion:int, agrupado):
     axes[1].set(xlabel=variable, ylabel='%')
     axes[1].tick_params(axis='x', rotation=90)
     fig.set_facecolor('white')
-    return plt.show()
+    if path != None:
+        return plt.savefig(path + variable + '.png')
+    else:
+        return plt.show()
 
 
 def mat_conf(y_test,y_pred):

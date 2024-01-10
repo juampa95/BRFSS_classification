@@ -21,42 +21,53 @@ dft = df_transformed.copy().round(0).astype(int)
 
 dfp_columns = dfp.columns.to_list()
 
-# fig, axes = plt.subplots(10,4,figsize=(30,35))
-# plt.suptitle('HISTOGRAMAS DE TODAS LAS VARIABLES, DISCRIMINADOS POR TARGET DIABETE4', fontsize=16, y=0.9)
-#
-# i = 0
-# for fil in range(10):
-#     for col in range(4):
-#         if i <=37:
-#             sns.histplot(data=dfp,
-#                          ax=axes[fil,col],
-#                          x=dfp_columns[i],
-#                          hue='DIABETE4'
-#                          )
-#             i += 1
-# plt.show()
-
 target = 'DIABETE4'
 # Voy a hacer graficos diferentes para variables categoricas nominales que para variables numericas discretas.
 dfp_col_num = ['_BMI5']
 dfp_col_cat = [x for x in dfp_columns if x not in dfp_col_num]
 
-graf_cat(dfp,dfp_col_cat[26],1,target)
-graf_cat(dft,dfp_col_cat[24],1,target)
+# graf_cat(dfp,dfp_col_cat[26],1,target)
+# graf_cat(dft,dfp_col_cat[24],1,target)
+#
+# dft.head()
+#
+# hist_box(dfp,dfp_col_cat[14],1)
+# hist_box(dft,dfp_col_cat[36],1,bins=1)
 
-dft.head()
+path = 'data/graphs/EDA/'
 
-hist_box(dfp,dfp_col_cat[14],1)
-hist_box(dft,dfp_col_cat[36],1,1)
+# VARIABLE NUMERICA
 
+hist_box(dft,dfp_col_num[0],1,path=path)
 
-for i in range(30,40):
+# CATEGORICAS
+
+# for i in range(len(dfp_col_cat)):
+for i in range(10):
     try:
-        graf_cat(dft, dfp_col_cat[i], 1, target)
+        graf_cat(dft, dfp_col_cat[i], 1, target,path=path)
     except:
         try:
-            graf_cat(dfp, dfp_col_cat[i], 1, target)
+            graf_cat(dfp, dfp_col_cat[i], 1, target,path=path)
         except:
             pass
+
+# VARIABLES CON 2do GRAFICO
+
+hist_box(dft,dfp_col_cat[dfp_col_cat.index('MENTHLTH')],1, bins=1, path=(path+'2'))
+hist_box(dft,dfp_col_cat[dfp_col_cat.index('PHYSHLTH')],1, bins=1, path=(path+'2'))
+hist_box(dft,dfp_col_cat[dfp_col_cat.index('POTADA1_')],1, path=(path+'2'))
+
+
+# ANALISIS INDIVIDAL DE VARIABLES
+
+# _RFHYPE6
+
+conteodf = dft['_RFHYPE6'].groupby(dft[target]).value_counts().unstack(fill_value=0).T
+conteodf['% con diabetes'] = conteodf[1]/conteodf.sum(axis=1)*100
+print(conteodf)
+
+# El 5,8% de la gente sin presión tiene diabetes y el 24,4% de la gente con presión alta tiene diabetes
+
 
 
